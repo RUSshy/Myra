@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Myra.Graphics;
+using Myra.Assets;
 using Myra.Graphics2D;
 using Myra.Graphics2D.Text;
 using Myra.Graphics2D.UI.Styles;
@@ -11,6 +12,13 @@ namespace Myra
 {
 	public static class DefaultAssets
 	{
+		private const string DefaultFontName = "default_font.fnt";
+		private const string DefaultSmallFontName = "default_font_small.fnt";
+		private const string DefaultStylesheetName = "default_stylesheet.json";
+		private const string DefaultSpritesheetName = "default_uiskin.atlas";
+
+		private static AssetManager _defaultAssetManager = new AssetManager(new ResourceAssetResolver(typeof(DefaultAssets).GetTypeInfo().Assembly, "Myra.Resources."));
+
 		private static Texture2D _white;
 		private static TextureRegion _whiteRegion;
 
@@ -29,8 +37,8 @@ namespace Myra
 					return _font;
 				}
 
-				var textureRegion = UISpritesheet.Drawables["default"].TextureRegion;
-				_font = BitmapFont.CreateFromFNT(Resources.Resources.DefaultFont, textureRegion);
+				_font = _defaultAssetManager.Load<BitmapFont>(DefaultFontName);
+
 				return _font;
 			}
 		}
@@ -61,10 +69,10 @@ namespace Myra
 				Texture2D texture;
 				using (var stream = Resources.Resources.GetBinaryResourceStream("default_uiskin.png"))
 				{
-					texture = GraphicsExtension.PremultipliedTextureFromPngStream(stream);
+					texture = GraphicsExtension.PremultipliedTextureFromStream(stream);
 				}
 
-				_uiSpritesheet = SpriteSheet.LoadLibGDX(Resources.Resources.DefaultUISkinAtlas, s => texture);
+				_uiSpritesheet = SpriteSheet.LoadGDX(Resources.Resources.DefaultUISkinAtlas, s => texture);
 
 				return _uiSpritesheet;
 			}

@@ -29,7 +29,7 @@ namespace Myra.Samples
 
 			using (var stream = File.OpenRead("Assets/mistral_0.png"))
 			{
-				var texture = GraphicsExtension.PremultipliedTextureFromPngStream(stream);
+				var texture = GraphicsExtension.PremultipliedTextureFromStream(stream);
 				var region = new TextureRegion(texture, new Rectangle(0, 0, texture.Width, texture.Height));
 
 				var fontData = File.ReadAllText("Assets/mistral.fnt");

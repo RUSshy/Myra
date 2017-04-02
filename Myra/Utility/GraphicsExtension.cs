@@ -4,7 +4,8 @@ using System.IO;
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Utilities.Png;
+using Myra.Assets;
+using StbSharp;
 
 namespace Myra.Utility
 {
@@ -33,6 +34,7 @@ namespace Myra.Utility
 
 		private static byte ApplyAlpha(byte color, byte alpha)
 		{
+			AssetManager am;
 			var fc = color / 255.0f;
 			var fa = alpha / 255.0f;
 
@@ -73,25 +75,25 @@ namespace Myra.Utility
 			texture.SetData(colors);
 		}
 
-		public static Texture2D PremultipliedTextureFromPngStream(Stream stream)
+		public static Texture2D PremultipliedTextureFromStream(Stream stream)
 		{
-			var reader = new PngReader();
+			var reader = new ImageReader();
 
-			var colors = reader.Read(stream, MyraEnvironment.GraphicsDevice);
+			var image = reader.Read(stream, Stb.STBI_rgb_alpha);
 
 			// Manually premultiply alpha
-			for (var i = 0; i < colors.Length; ++i)
+			var data = image.Data;
+			for (var i = 0; i < image.Width * image.Height; ++i)
 			{
-				var a = colors[i].A;
+				var a = data[i * 4 + 3];
 
-				colors[i].R = ApplyAlpha(colors[i].R, a);
-				colors[i].G = ApplyAlpha(colors[i].G, a);
-				colors[i].B = ApplyAlpha(colors[i].B, a);
-				colors[i].A = a;
+				data[i * 4] = ApplyAlpha(data[i * 4], a);
+				data[i * 4 + 1] = ApplyAlpha(data[i * 4 + 1], a);
+				data[i * 4 + 2] = ApplyAlpha(data[i * 4 + 2], a);
 			}
 
-			var texture = new Texture2D(MyraEnvironment.GraphicsDevice, reader.Width, reader.Height, false, SurfaceFormat.Color);
-			texture.SetData(colors);
+			var texture = new Texture2D(MyraEnvironment.GraphicsDevice, image.Width, image.Height, false, SurfaceFormat.Color);
+			texture.SetData(data);
 
 			return texture;
 		}

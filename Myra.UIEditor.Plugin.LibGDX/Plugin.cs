@@ -58,7 +58,7 @@ namespace Myra.UIEditor.Plugin.LibGDX
 
 			// Second step - load sprite sheet
 			var data = GetStringResource("uiskin.atlas");
-			var spriteSheet = SpriteSheet.LoadLibGDX(data, s => underlyingImage);
+			var spriteSheet = SpriteSheet.LoadGDX(data, s => underlyingImage);
 
 			// Retrieve sprite with font
 			var fontSprite = spriteSheet.Drawables["default"];
