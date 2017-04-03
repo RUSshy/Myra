@@ -146,6 +146,7 @@ namespace Myra
 
 		internal static void Dispose()
 		{
+			_defaultAssetManager.ClearCache();
 			_font = null;
 			_fontSmall = null;
 			_uiSpritesheet = null;

@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Reflection;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Myra.Assets;
-using StbSharp;
 
 namespace Myra.Utility
 {
@@ -30,72 +26,6 @@ namespace Myra.Utility
 				var value = (Color) c.GetValue(null, null);
 				_colors[c.Name.ToLower()] = value;
 			}
-		}
-
-		private static byte ApplyAlpha(byte color, byte alpha)
-		{
-			AssetManager am;
-			var fc = color / 255.0f;
-			var fa = alpha / 255.0f;
-
-			var fr = (int)(255.0f * fc * fa);
-
-			if (fr < 0)
-			{
-				fr = 0;
-			}
-
-			if (fr > 255)
-			{
-				fr = 255;
-			}
-
-			return (byte)fr;
-		}
-
-		public static void PremultiplyAlpha(this Texture2D texture)
-		{
-			// Retrieve colors
-			var colors = new Color[texture.Width*texture.Height];
-
-			texture.GetData(colors);
-
-			// Premultiply
-			for (var i = 0; i < colors.Length; ++i)
-			{
-				var a = colors[i].A;
-
-				colors[i].R = ApplyAlpha(colors[i].R, a);
-				colors[i].G = ApplyAlpha(colors[i].G, a);
-				colors[i].B = ApplyAlpha(colors[i].B, a);
-				colors[i].A = a;
-			}
-
-			// Store
-			texture.SetData(colors);
-		}
-
-		public static Texture2D PremultipliedTextureFromStream(Stream stream)
-		{
-			var reader = new ImageReader();
-
-			var image = reader.Read(stream, Stb.STBI_rgb_alpha);
-
-			// Manually premultiply alpha
-			var data = image.Data;
-			for (var i = 0; i < image.Width * image.Height; ++i)
-			{
-				var a = data[i * 4 + 3];
-
-				data[i * 4] = ApplyAlpha(data[i * 4], a);
-				data[i * 4 + 1] = ApplyAlpha(data[i * 4 + 1], a);
-				data[i * 4 + 2] = ApplyAlpha(data[i * 4 + 2], a);
-			}
-
-			var texture = new Texture2D(MyraEnvironment.GraphicsDevice, image.Width, image.Height, false, SurfaceFormat.Color);
-			texture.SetData(data);
-
-			return texture;
 		}
 
 		public static string ToHexString(this Color c)

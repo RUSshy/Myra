@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Assets\AssetManager.cs" />
     <Compile Include="Assets\BitmapFontLoader.cs" />
+    <Compile Include="Assets\DrawableLoader.cs" />
     <Compile Include="Assets\IAssetLoader.cs" />
     <Compile Include="Assets\IAssetResolver.cs" />
     <Compile Include="Assets\ResourceAssetResolver.cs" />
@@ -143,7 +144,6 @@
     <Compile Include="Graphics2D\UI\VerticalSlider.cs" />
     <Compile Include="Graphics2D\UI\VerticalSplitPane.cs" />
     <Compile Include="Utility\ProgressInfo.cs" />
-    <Compile Include="Resources\Resources.cs" />
     <Compile Include="DefaultAssets.cs" />
     <Compile Include="Utility\Collections.cs" />
     <Compile Include="Utility\FPSCounter.cs" />
@@ -185,7 +185,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\default_uiskin.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\default_uiskin.png.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

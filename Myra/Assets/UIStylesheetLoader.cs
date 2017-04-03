@@ -5,7 +5,6 @@ using Myra.Graphics2D;
 using Myra.Graphics2D.Text;
 using Myra.Graphics2D.UI.Styles;
 using Myra.Utility;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Myra.Assets
@@ -15,12 +14,15 @@ namespace Myra.Assets
 		private const string FontsName = "fonts";
 		private const string SpritesheetName = "spriteSheet";
 
-		public Stylesheet Load(AssetManager assetManager, Stream stream)
+		public Stylesheet Load(AssetManager assetManager, string path)
 		{
 			string text;
-			using (var textReader = new StreamReader(stream))
+			using (var input = assetManager.Open(path))
 			{
-				text = textReader.ReadToEnd();
+				using (var textReader = new StreamReader(input))
+				{
+					text = textReader.ReadToEnd();
+				}
 			}
 
 			var root = JObject.Parse(text);

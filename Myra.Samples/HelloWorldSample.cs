@@ -1,9 +1,8 @@
-﻿using System.IO;
+﻿using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Myra.Graphics2D;
+using Myra.Assets;
 using Myra.Graphics2D.Text;
-using Myra.Utility;
 
 namespace Myra.Samples
 {
@@ -11,6 +10,7 @@ namespace Myra.Samples
 	{
 		private readonly GraphicsDeviceManager graphics;
 		private SpriteBatch _batch;
+		private readonly AssetManager _assetManager = new AssetManager(new ResourceAssetResolver(typeof(HelloWorldSample).GetTypeInfo().Assembly, "Myra.Samples.Resources."));
 		private BitmapFont _font;
 
 		public HelloWorldSample()
@@ -26,15 +26,7 @@ namespace Myra.Samples
 			MyraEnvironment.Game = this;
 
 			_batch = new SpriteBatch(GraphicsDevice);
-
-			using (var stream = File.OpenRead("Assets/mistral_0.png"))
-			{
-				var texture = GraphicsExtension.PremultipliedTextureFromStream(stream);
-				var region = new TextureRegion(texture, new Rectangle(0, 0, texture.Width, texture.Height));
-
-				var fontData = File.ReadAllText("Assets/mistral.fnt");
-				// _font = BitmapFont.CreateFromFNT(fontData, region);
-			}
+			_font = _assetManager.Load<BitmapFont>("mistral.fnt");
 		}
 
 		protected override void Draw(GameTime gameTime)
@@ -54,7 +46,7 @@ namespace Myra.Samples
 
 			_batch.Begin();
 
-			_font.Draw(_batch, "Hello, World!", Point.Zero, Color.White);
+			_font.Draw(_batch, "Hello, World!", Point.Zero, Color.Green);
 
 			_batch.End();
 		}

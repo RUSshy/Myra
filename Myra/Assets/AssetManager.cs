@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Myra.Assets
 {
@@ -33,6 +34,7 @@ namespace Myra.Assets
 		private void RegisterDefaultLoaders()
 		{
 			RegisterAssetLoader(new Texture2DLoader());
+			RegisterAssetLoader(new DrawableLoader());
 			RegisterAssetLoader(new BitmapFontLoader());
 			RegisterAssetLoader(new SpritesheetLoader());
 			RegisterAssetLoader(new UIStylesheetLoader());
@@ -41,6 +43,28 @@ namespace Myra.Assets
 		public void RegisterAssetLoader<T>(IAssetLoader<T> loader)
 		{
 			_loaders.Add(typeof (T), loader);
+		}
+
+		public void ClearCache()
+		{
+			_cache.Clear();
+		}
+
+		/// <summary>
+		/// Opens a stream specified by asset path
+		/// Throws an exception on failure
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public Stream Open(string path)
+		{
+			var stream = _assetResolver.Open(path);
+			if (stream == null)
+			{
+				throw new Exception(string.Format("Can't open asset {0}", path));
+			}
+	
+			return stream;
 		}
 
 		public T Load<T>(string name, object parameters = null)
@@ -60,23 +84,10 @@ namespace Myra.Assets
 
 			var loader = (IAssetLoader<T>) loaderBase;
 
-			var stream = _assetResolver.Open(name);
-			if (stream == null)
-			{
-				throw new Exception(string.Format("Can't open asset {0}", name));
-			}
+			var result = loader.Load(this, name);
+			_cache[name] = result;
 
-			try
-			{
-				var result = loader.Load(this, stream);
-				_cache[name] = result;
-
-				return result;
-			}
-			finally
-			{
-				stream.Dispose();
-			}
+			return result;
 		}
 	}
 }
