@@ -17,6 +17,7 @@ namespace Myra.Assets
 
 				return drawable.TextureRegion;
 			}
+
 			return new TextureRegion(assetManager.Load<Texture2D>(fn));
 		}
 	}
