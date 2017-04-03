@@ -76,14 +76,14 @@ namespace Myra.Graphics2D
 			throw new Exception("Not supported!");
 		}
 
-		public static SpriteSheet LoadGDX(Stream stream, Func<string, Texture2D> textureResolver)
+		public static SpriteSheet LoadGDX(string data, Func<string, Texture2D> textureLoader)
 		{
 			var mode = GDXMode.PageHeader;
 
 			GDXPageData pageData = null;
 			var spriteDatas = new Dictionary<string, GDXSpriteData>();
 
-			using (var textReader = new StreamReader(stream))
+			using (var textReader = new StringReader(data))
 			{
 				GDXSpriteData spriteData = null;
 				while (true)
@@ -104,13 +104,13 @@ namespace Myra.Graphics2D
 
 					if (pageData == null)
 					{
-						var texture = textureResolver(s);
+						var texture = textureLoader(s);
 						if (texture == null)
 						{
-							throw new Exception(string.Format("Unable to resolve texture '{0}'", s));
+							throw new Exception(string.Format("Unable to resolve texture {0}", s));
 						}
 
-						pageData = new GDXPageData {Texture = texture};
+						pageData = new GDXPageData { Texture = texture };
 						mode = GDXMode.PageHeader;
 						continue;
 					}
@@ -145,8 +145,8 @@ namespace Myra.Graphics2D
 							break;
 						case "filter":
 							parts = value.Split(',');
-							var minFilter = (GDXTextureFilter) Enum.Parse(typeof (GDXTextureFilter), parts[0].Trim());
-							var magFilter = (GDXTextureFilter) Enum.Parse(typeof (GDXTextureFilter), parts[1].Trim());
+							var minFilter = (GDXTextureFilter)Enum.Parse(typeof(GDXTextureFilter), parts[0].Trim());
+							var magFilter = (GDXTextureFilter)Enum.Parse(typeof(GDXTextureFilter), parts[1].Trim());
 
 							pageData.Filter = FromGDXFilters(minFilter, magFilter);
 							break;
@@ -233,5 +233,6 @@ namespace Myra.Graphics2D
 
 			return new SpriteSheet(drawables);
 		}
+
 	}
 }

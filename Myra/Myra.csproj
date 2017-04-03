@@ -62,7 +62,7 @@
     <Compile Include="Assets\ResourceAssetResolver.cs" />
     <Compile Include="Assets\SpritesheetLoader.cs" />
     <Compile Include="Assets\Texture2DLoader.cs" />
-    <Compile Include="Assets\Texture2DLoadingParameters.cs" />
+    <Compile Include="Assets\UIStylesheetLoader.cs" />
     <Compile Include="Cyotek.Drawing.BitmapFont\BitmapFont.cs" />
     <Compile Include="Cyotek.Drawing.BitmapFont\BitmapFontLoader.cs" />
     <Compile Include="Cyotek.Drawing.BitmapFont\Character.cs" />
@@ -74,6 +74,7 @@
     <Compile Include="Edit\IItemsProvider.cs" />
     <Compile Include="Edit\SelectionAttribute.cs" />
     <Compile Include="Graphics2D\SpriteSheet.GDX.cs" />
+    <Compile Include="Graphics2D\Text\BitmapFont.FNT.cs" />
     <Compile Include="Graphics2D\UI\HorizontalProgressBar.cs" />
     <Compile Include="Graphics2D\UI\GridBased.cs" />
     <Compile Include="Graphics2D\UI\HorizontalSlider.cs" />

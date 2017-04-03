@@ -35,6 +35,7 @@ namespace Myra.Assets
 			RegisterAssetLoader(new Texture2DLoader());
 			RegisterAssetLoader(new BitmapFontLoader());
 			RegisterAssetLoader(new SpritesheetLoader());
+			RegisterAssetLoader(new UIStylesheetLoader());
 		}
 
 		public void RegisterAssetLoader<T>(IAssetLoader<T> loader)
@@ -67,7 +68,7 @@ namespace Myra.Assets
 
 			try
 			{
-				var result = loader.Load(this, stream, parameters);
+				var result = loader.Load(this, stream);
 				_cache[name] = result;
 
 				return result;

@@ -33,7 +33,7 @@ namespace Myra.Samples
 				var region = new TextureRegion(texture, new Rectangle(0, 0, texture.Width, texture.Height));
 
 				var fontData = File.ReadAllText("Assets/mistral.fnt");
-				_font = BitmapFont.CreateFromFNT(fontData, region);
+				// _font = BitmapFont.CreateFromFNT(fontData, region);
 			}
 		}
 

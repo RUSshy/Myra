@@ -6,11 +6,15 @@ namespace Myra.Assets
 {
 	public class SpritesheetLoader : IAssetLoader<SpriteSheet>
 	{
-		public SpriteSheet Load(AssetManager assetManager, Stream input, object parameters)
+		public SpriteSheet Load(AssetManager assetManager, Stream input)
 		{
-			var result = SpriteSheet.LoadGDX(input, s => assetManager.Load<Texture2D>(s));
+			string text;
+			using (var textReader = new StreamReader(input))
+			{
+				text = textReader.ReadToEnd();
+			}
 
-			return result;
+			return SpriteSheet.LoadGDX(text, s => assetManager.Load<Texture2D>(s));
 		}
 	}
 }

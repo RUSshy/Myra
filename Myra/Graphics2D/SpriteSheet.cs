@@ -21,5 +21,16 @@ namespace Myra.Graphics2D
 
 			_drawables = drawables;
 		}
+
+		public ImageDrawable EnsureDrawable(string id)
+		{
+			ImageDrawable result;
+			if (!_drawables.TryGetValue(id, out result))
+			{
+				throw new ArgumentNullException(string.Format("Could not resolve drawable '{0}'", id));
+			}
+
+			return result;
+		}
 	}
 }
