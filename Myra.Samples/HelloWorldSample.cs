@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Myra.Assets;
 using Myra.Graphics2D.Text;
@@ -10,7 +9,7 @@ namespace Myra.Samples
 	{
 		private readonly GraphicsDeviceManager graphics;
 		private SpriteBatch _batch;
-		private readonly AssetManager _assetManager = new AssetManager(new ResourceAssetResolver(typeof(HelloWorldSample).GetTypeInfo().Assembly, "Myra.Samples.Resources."));
+		private readonly AssetManager _assetManager = new AssetManager(new FileSystemAssetResolver("Assets"));
 		private BitmapFont _font;
 
 		public HelloWorldSample()

@@ -4,16 +4,13 @@ using System.Reflection;
 
 namespace Myra.Assets
 {
-	public class ResourceAssetResolver: IAssetResolver
+	public class ResourceAssetResolver : IAssetResolver
 	{
 		private Assembly _assembly;
 
 		public Assembly Assembly
 		{
-			get
-			{
-				return _assembly;
-			}
+			get { return _assembly; }
 
 			set
 			{
@@ -25,6 +22,7 @@ namespace Myra.Assets
 				_assembly = value;
 			}
 		}
+
 		public string Prefix { get; set; }
 
 		public ResourceAssetResolver(Assembly assembly, string prefix)

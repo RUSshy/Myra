@@ -16,7 +16,8 @@ namespace Myra
 		private const string DefaultStylesheetName = "default_stylesheet.json";
 		private const string DefaultSpritesheetName = "default_uiskin.atlas";
 
-		private static readonly AssetManager _defaultAssetManager = new AssetManager(new ResourceAssetResolver(typeof(DefaultAssets).GetTypeInfo().Assembly, "Myra.Resources."));
+		private static readonly AssetManager _defaultAssetManager =
+			new AssetManager(new ResourceAssetResolver(typeof (DefaultAssets).GetTypeInfo().Assembly, "Myra.Resources."));
 
 		private static Texture2D _white;
 		private static TextureRegion _whiteRegion;

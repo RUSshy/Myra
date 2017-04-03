@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace Myra.Assets
 {
@@ -37,6 +38,7 @@ namespace Myra.Assets
 			RegisterAssetLoader(new DrawableLoader());
 			RegisterAssetLoader(new BitmapFontLoader());
 			RegisterAssetLoader(new SpritesheetLoader());
+			RegisterAssetLoader(new UILoader());
 			RegisterAssetLoader(new UIStylesheetLoader());
 		}
 
@@ -67,6 +69,25 @@ namespace Myra.Assets
 			return stream;
 		}
 
+		/// <summary>
+		/// Reads specified asset to string
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public string ReadAsText(string path)
+		{
+			string result;
+			using (var input = Open(path))
+			{
+				using (var textReader = new StreamReader(input))
+				{
+					result = textReader.ReadToEnd();
+				}
+			}
+
+			return result;
+		}
+
 		public T Load<T>(string name, object parameters = null)
 		{
 			object cached;
@@ -86,6 +107,18 @@ namespace Myra.Assets
 
 			var result = loader.Load(this, name);
 			_cache[name] = result;
+
+			return result;
+		}
+
+		private static Func<string, Stream> CreateResourceAssetOpener(Assembly assembly, string prefix)
+		{
+			var result = new Func<string, Stream>(path =>
+			{
+				var stream = assembly.GetManifestResourceStream(prefix + path);
+
+				return stream;
+			});
 
 			return result;
 		}

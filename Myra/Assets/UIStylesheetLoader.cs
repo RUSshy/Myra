@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Myra.Graphics2D;
 using Myra.Graphics2D.Text;
 using Myra.Graphics2D.UI.Styles;
@@ -16,14 +15,7 @@ namespace Myra.Assets
 
 		public Stylesheet Load(AssetManager assetManager, string path)
 		{
-			string text;
-			using (var input = assetManager.Open(path))
-			{
-				using (var textReader = new StreamReader(input))
-				{
-					text = textReader.ReadToEnd();
-				}
-			}
+			var text = assetManager.ReadAsText(path);
 
 			var root = JObject.Parse(text);
 			var fontsMap = new Dictionary<string, BitmapFont>();
