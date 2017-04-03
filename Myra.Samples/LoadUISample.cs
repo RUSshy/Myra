@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using Microsoft.Xna.Framework;
 using Myra.Assets;
 using Myra.Graphics2D.UI;
@@ -10,7 +9,7 @@ namespace Myra.Samples
 	{
 		private readonly GraphicsDeviceManager graphics;
 
-		private readonly AssetManager _assetManager = new AssetManager(new ResourceAssetResolver(typeof(CustomUIStylesheetSample).GetTypeInfo().Assembly, "Myra.Samples.Resources."));
+		private readonly AssetManager _assetManager = new AssetManager(new FileSystemAssetResolver("Assets"));
 		private Desktop _host;
 		private ListBox _mainMenuList;
 
