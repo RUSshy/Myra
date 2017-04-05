@@ -73,7 +73,7 @@ namespace Myra.Graphics2D.Text
 			private void StoreRun()
 			{
 				_result.Add(_lastRun);
-				_lastRun = new GlyphRun(_font.LineHeight);
+				_lastRun = new GlyphRun(_font);
 
 				_fullString.Clear();
 			}
@@ -167,7 +167,7 @@ namespace Myra.Graphics2D.Text
 
 				// Second run - go through lexemes
 				_result.Clear();
-				_lastRun = new GlyphRun(_font.LineHeight);
+				_lastRun = new GlyphRun(_font);
 				_fullString.Clear();
 
 				foreach (var li in _lexemes)
@@ -175,7 +175,7 @@ namespace Myra.Graphics2D.Text
 					switch (li.type)
 					{
 						case LexemeType.LineBreak:
-							_lastRun.Append(font, li.chars, _currentColor);
+							_lastRun.Append(li.chars, _currentColor);
 							StoreRun();
 							break;
 						case LexemeType.Space:
@@ -187,7 +187,7 @@ namespace Myra.Graphics2D.Text
 								var sz = font.MeasureString(_fullString.ToString());
 								if (sz.Width <= options.Width.Value)
 								{
-									_lastRun.Append(font, li.chars, _currentColor);
+									_lastRun.Append(li.chars, _currentColor);
 								}
 								else
 								{
@@ -199,13 +199,13 @@ namespace Myra.Graphics2D.Text
 									if (li.type == LexemeType.Word)
 									{
 										_fullString.Append(li.text);
-										_lastRun.Append(font, li.chars, _currentColor);
+										_lastRun.Append(li.chars, _currentColor);
 									}
 								}
 							}
 							else
 							{
-								_lastRun.Append(font, li.chars, _currentColor);
+								_lastRun.Append(li.chars, _currentColor);
 							}
 							break;
 						case LexemeType.Color:
