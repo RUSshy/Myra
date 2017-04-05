@@ -232,18 +232,9 @@ namespace Myra.Graphics2D
 			return result;
 		}
 
-		public static Drawable GetDrawable(this TextureAtlas textureAtlas, string name)
+		public static void Draw(this SpriteBatch spriteBatch, TextureRegion2D textureRegion, Rectangle destinationRectangle)
 		{
-			var region = textureAtlas.GetRegion(name);
-
-			var asNinePatch = region as NinePatchRegion2D;
-			if (asNinePatch != null)
-			{
-				return new NinePatchDrawable(asNinePatch);
-			}
-
-			return new TextureRegionDrawable(textureAtlas.GetRegion(name));
+			spriteBatch.Draw(textureRegion, destinationRectangle, Color.White);
 		}
-
 	}
 }

@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.TextureAtlases;
-using Myra.Graphics2D;
 
 namespace Myra.Assets
 {
-	public class DrawableLoader : IAssetLoader<TextureRegion2D>
+	public class TextureRegion2DLoader : IAssetLoader<TextureRegion2D>
 	{
 		public TextureRegion2D Load(AssetManager assetManager, string assetName)
 		{
@@ -16,9 +15,9 @@ namespace Myra.Assets
 				var spriteSheet = assetManager.Load<TextureAtlas>(parts[0]);
 
 
-				var drawable = spriteSheet.GetDrawable(parts[1]);
+				var image = spriteSheet.GetRegion(parts[1]);
 
-				return drawable.TextureRegion;
+				return image;
 			}
 
 			return new TextureRegion2D(assetManager.Load<Texture2D>(assetName));

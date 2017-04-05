@@ -42,7 +42,7 @@ namespace Myra.Assets
 		{
 			SetAssetLoader(new Texture2DLoader());
 			SetAssetLoader(new BitmapFontLoader());
-			SetAssetLoader(new DrawableLoader());
+			SetAssetLoader(new TextureRegion2DLoader());
 			SetAssetLoader(new TextureAtlasLoader());
 		}
 

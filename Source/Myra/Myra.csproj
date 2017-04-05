@@ -82,7 +82,6 @@
     <Compile Include="Attributes\IItemsProvider.cs" />
     <Compile Include="Attributes\SelectionAttribute.cs" />
     <Compile Include="Graphics2D\TextureAtlasExtensions.cs" />
-    <Compile Include="Graphics2D\TextureRegionDrawable.cs" />
     <Compile Include="Graphics2D\Text\BitmapFontExtensions.cs" />
     <Compile Include="Graphics2D\UI\HorizontalProgressBar.cs" />
     <Compile Include="Graphics2D\UI\GridBased.cs" />
@@ -92,8 +91,6 @@
     <Compile Include="Graphics2D\UI\IMenuItemsContainer.cs" />
     <Compile Include="Graphics2D\UI\ListItem.cs" />
     <Compile Include="Graphics2D\SpriteBatchExtensions.cs" />
-    <Compile Include="Graphics2D\Drawable.cs" />
-    <Compile Include="Graphics2D\NinePatchDrawable.cs" />
     <Compile Include="Graphics2D\PaddingInfo.cs" />
     <Compile Include="Graphics2D\Text\CharInfo.cs" />
     <Compile Include="Graphics2D\Text\FormattedText.cs" />
