@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
+using MonoGame.Extended.BitmapFonts;
 
 namespace Myra.Graphics2D.Text
 {
@@ -52,8 +54,7 @@ namespace Myra.Graphics2D.Text
 
 		public void Append(BitmapFont font, CharInfo ci, Color? color)
 		{
-			Glyph glyph;
-			font.Glyphs.TryGetValue(ci.Value, out glyph);
+			var glyph = font.GetCharacterRegion(ci.Value);
 
 			// Add kerning
 			if (Count > 0)
@@ -62,7 +63,7 @@ namespace Myra.Graphics2D.Text
 
 				if (lastRender.Glyph != null)
 				{
-					_posX += lastRender.Glyph.GetKerning(ci.Value);
+					// _posX += lastRender.Glyph.GetKerning(ci.Value);
 				}
 			}
 
@@ -75,7 +76,12 @@ namespace Myra.Graphics2D.Text
 				_posX += glyph.XAdvance;
 
 				Size.X = _posX;
-				Size.Y = glyph.Offset.Y + glyph.Region.Bounds.Height;
+
+				var height = glyph.YOffset + glyph.Height;
+				if (height > Size.Y)
+				{
+					Size.Y = height;
+				}
 			}
 			else
 			{
@@ -125,10 +131,9 @@ namespace Myra.Graphics2D.Text
 			}
 				
 			RenderedBounds = new Rectangle(pos.X, pos.Y, x - pos.X, Size.Y);
-
-			if (BitmapFont.DrawFames)
+//			if (BitmapFont.DrawFames)
 			{
-				batch.DrawRect(Color.Blue, RenderedBounds.Value);
+				batch.DrawRectangle(RenderedBounds.Value, Color.Blue);
 			}
 		}
 	}

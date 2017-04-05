@@ -1,17 +1,19 @@
-﻿using System;
+﻿using MonoGame.Extended.BitmapFonts;
+using System;
 using System.Collections.Generic;
+using MonoGame.Extended.TextureAtlases;
 
 namespace Myra.Graphics2D.Text
 {
-	partial class BitmapFont
+	public static class BitmapFontExtensions
 	{
-		public static BitmapFont LoadFromFnt(string text, Func<string, TextureRegion> textureLoader)
+		public static BitmapFont LoadFromFnt(string name, string text, Func<string, TextureRegion2D> textureLoader)
 		{
 			var data = new Cyotek.Drawing.BitmapFont.BitmapFont();
 			data.LoadText(text);
 
 			// Resolve pages
-			var pageRegions = new TextureRegion[data.Pages.Length];
+			var pageRegions = new TextureRegion2D[data.Pages.Length];
 			for (var i = 0; i < data.Pages.Length; ++i)
 			{
 				var fn = data.Pages[i].FileName;
@@ -24,7 +26,7 @@ namespace Myra.Graphics2D.Text
 				pageRegions[i] = region;
 			}
 
-			var glyphs = new Dictionary<char, Glyph>();
+			var glyphs = new List<BitmapFontRegion>();
 
 			foreach (var pair in data.Characters)
 			{
@@ -32,33 +34,29 @@ namespace Myra.Graphics2D.Text
 
 				var bounds = character.Bounds;
 
-				var region = new TextureRegion(pageRegions[pair.Value.TexturePage], bounds);
-				var glyph = new Glyph
-				{
-					Id = character.Char,
-					Region = region,
-					Offset = character.Offset,
-					XAdvance = character.XAdvance
-				};
+				var pageRegion = pageRegions[pair.Value.TexturePage];
+				bounds.Offset(pageRegion.X, pageRegion.Y);
 
-				glyphs[glyph.Id] = glyph;
+				var region = new TextureRegion2D(pageRegion.Texture, bounds);
+				var glyph = new BitmapFontRegion(region, character.Char, character.Offset.X, character.Offset.Y, character.XAdvance);
+				glyphs.Add(glyph);
 			}
 
 			// Process kernings
-			foreach (var pair in data.Kernings)
+/*			foreach (var pair in data.Kernings)
 			{
 				var kerning = pair.Key;
 
-				Glyph glyph;
+				SpriteFont.Glyph glyph;
 				if (!glyphs.TryGetValue(kerning.FirstCharacter, out glyph))
 				{
 					continue;
 				}
 
 				glyph.Kerning[kerning.SecondCharacter] = kerning.Amount;
-			}
+			}*/
 
-			var result = new BitmapFont(glyphs, pageRegions, data.LineHeight);
+			var result = new BitmapFont(name, glyphs, data.LineHeight);
 
 			return result;
 		}

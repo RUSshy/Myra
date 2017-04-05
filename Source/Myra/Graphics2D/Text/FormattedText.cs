@@ -2,6 +2,7 @@
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.BitmapFonts;
 using Myra.Utility;
 
 namespace Myra.Graphics2D.Text
@@ -183,8 +184,8 @@ namespace Myra.Graphics2D.Text
 
 							if (options.Width.HasValue)
 							{
-								var sz = font.Measure(_fullString.ToString());
-								if (sz.X <= options.Width.Value)
+								var sz = font.MeasureString(_fullString.ToString());
+								if (sz.Width <= options.Width.Value)
 								{
 									_lastRun.Append(font, li.chars, _currentColor);
 								}

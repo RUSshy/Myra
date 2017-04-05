@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.BitmapFonts;
+using MonoGame.Extended.TextureAtlases;
 
 namespace Myra.Graphics2D.Text
 {
@@ -9,7 +11,7 @@ namespace Myra.Graphics2D.Text
 		public BitmapFont Font { get; private set; }
 		public CharInfo CharInfo { get; private set; }
 		public GlyphRun Run { get; private set; }
-		public Glyph Glyph { get; private set; }
+		public BitmapFontRegion Glyph { get; private set; }
 		public Color? Color { get; private set; }
 		public Point Location { get; private set; }
 		public Rectangle? RenderedBounds { get; private set; }
@@ -19,7 +21,7 @@ namespace Myra.Graphics2D.Text
 			get { return Glyph != null ? Glyph.XAdvance : 0; }
 		}
 
-		public GlyphRender(BitmapFont font, CharInfo charInfo, GlyphRun run, Glyph glyph, Color? color, Point location)
+		public GlyphRender(BitmapFont font, CharInfo charInfo, GlyphRun run, BitmapFontRegion glyph, Color? color, Point location)
 		{
 			if (font == null)
 			{
@@ -46,26 +48,18 @@ namespace Myra.Graphics2D.Text
 
 		public void Draw(SpriteBatch batch, Point pos, Color color)
 		{
-			if (Glyph == null || Glyph.Region == null)
+			if (Glyph == null)
 			{
 				return;
 			}
 
-			var bounds = new Rectangle(Location.X + Glyph.Offset.X, 
-				Location.Y + Glyph.Offset.Y,
-				Glyph.Region.Bounds.Width,
-				Glyph.Region.Bounds.Height);
-
-			bounds.Offset(pos);
+			var v = new Vector2(pos.X + Location.X + Glyph.XOffset, pos.Y + Location.Y + Glyph.YOffset);
 
 			var glyphColor = Color ?? color;
-			Glyph.Region.Draw(batch, bounds, glyphColor);
 
-			if (BitmapFont.DrawFames)
-			{
-				batch.DrawRect(Microsoft.Xna.Framework.Color.YellowGreen, bounds);
-			}
+			batch.Draw(Glyph.TextureRegion, v, glyphColor);
 
+			var bounds = new Rectangle((int)v.X, (int)v.Y, Glyph.Width, Glyph.Height);
 			if (bounds.Width == 0 || bounds.Height == 0)
 			{
 				bounds.X = Location.X;
@@ -76,7 +70,6 @@ namespace Myra.Graphics2D.Text
 			}
 
 			RenderedBounds = bounds;
-
 		}
 	}
 }

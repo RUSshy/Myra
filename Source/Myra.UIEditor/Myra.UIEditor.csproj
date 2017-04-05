@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MonoGame.Extended, Version=0.6.377.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Myra-Dependencies\MonoGame.Extended\MonoGame.Extended.dll</HintPath>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\Myra-Dependencies\NLog\NLog.dll</HintPath>
     </Reference>

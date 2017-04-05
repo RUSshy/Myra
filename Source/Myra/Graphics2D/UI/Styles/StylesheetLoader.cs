@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended.BitmapFonts;
+using MonoGame.Extended.TextureAtlases;
 using Myra.Graphics2D.Text;
 using Myra.Utility;
 using Newtonsoft.Json.Linq;
@@ -92,30 +94,30 @@ namespace Myra.Graphics2D.UI.Styles
 		private readonly Dictionary<string, Color> _colors = new Dictionary<string, Color>();
 		private readonly JObject _root;
 		private readonly Func<string, BitmapFont> _fontGetter;
-		private readonly SpriteSheet _spriteSheet;
+		private readonly TextureAtlas _textureAtlas;
 
 		public StylesheetLoader(JObject root,
 			Func<string, BitmapFont> fontGetter,
-			SpriteSheet spriteSheet)
+			TextureAtlas textureAtlas)
 		{
 			if (root == null)
 			{
 				throw new ArgumentNullException("root");
 			}
 
-			if (spriteSheet == null)
+			if (textureAtlas == null)
 			{
-				throw new ArgumentNullException("spriteSheet");
+				throw new ArgumentNullException("textureAtlas");
 			}
 
 			_root = root;
 			_fontGetter = fontGetter;
-			_spriteSheet = spriteSheet;
+			_textureAtlas = textureAtlas;
 		}
 
 		private Drawable GetDrawable(string id)
 		{
-			return _spriteSheet.EnsureDrawable(id);
+			return _textureAtlas.GetDrawable(id);
 		}
 
 		private BitmapFont GetFont(string id)

@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
 using Myra.Attributes;
 using Myra.Graphics2D.UI.Styles;
 using Myra.Utility;
@@ -594,12 +595,12 @@ namespace Myra.Graphics2D.UI
 
 			if (DrawFrames)
 			{
-				batch.DrawRect(Color.LightGreen, bounds);
+				batch.DrawRectangle(bounds, Color.LightGreen);
 			}
 
 			if (DrawFocused && IsFocused)
 			{
-				batch.DrawRect(Color.Red, bounds);
+				batch.DrawRectangle(bounds, Color.Red);
 			}
 
 			if (ClipToBounds)

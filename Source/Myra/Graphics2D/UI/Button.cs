@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using MonoGame.Extended.BitmapFonts;
 using Myra.Attributes;
-using Myra.Graphics2D.Text;
 using Myra.Graphics2D.UI.Styles;
 using Newtonsoft.Json;
 
