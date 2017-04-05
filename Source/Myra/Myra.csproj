@@ -27,6 +27,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,6 +37,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Extended">
@@ -47,15 +49,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Myra-Dependencies\Newtonsoft.Json\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="StbSharp">
-      <HintPath>..\Myra-Dependencies\StbSharp\StbSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.ComponentModel" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AssetManager.cs" />
@@ -81,6 +74,11 @@
     <Compile Include="Attributes\HiddenInEditorAttribute.cs" />
     <Compile Include="Attributes\IItemsProvider.cs" />
     <Compile Include="Attributes\SelectionAttribute.cs" />
+    <Compile Include="Graphics2D\StbSharp\ImageReader.cs" />
+    <Compile Include="Graphics2D\StbSharp\Operations.cs" />
+    <Compile Include="Graphics2D\StbSharp\PinnedArray.cs" />
+    <Compile Include="Graphics2D\StbSharp\Stb.Image.cs" />
+    <Compile Include="Graphics2D\StbSharp\Stb.Image.Generated.cs" />
     <Compile Include="Graphics2D\TextureAtlasExtensions.cs" />
     <Compile Include="Graphics2D\Text\BitmapFontExtensions.cs" />
     <Compile Include="Graphics2D\UI\HorizontalProgressBar.cs" />
