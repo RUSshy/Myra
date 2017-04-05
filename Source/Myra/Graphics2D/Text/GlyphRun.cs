@@ -126,7 +126,7 @@ namespace Myra.Graphics2D.Text
 					break;
 				}
 
-				if (x + gr.XAdvance > right && !drawPartialLastSymbol)
+				if (x + gr.Width > right && !drawPartialLastSymbol)
 				{
 					break;
 				}
