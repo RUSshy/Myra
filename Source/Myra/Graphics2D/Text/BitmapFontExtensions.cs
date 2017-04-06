@@ -1,6 +1,7 @@
 ﻿using MonoGame.Extended.BitmapFonts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MonoGame.Extended.TextureAtlases;
 
 namespace Myra.Graphics2D.Text
@@ -27,7 +28,6 @@ namespace Myra.Graphics2D.Text
 			}
 
 			var glyphs = new List<BitmapFontRegion>();
-
 			foreach (var pair in data.Characters)
 			{
 				var character = pair.Value;
@@ -42,18 +42,20 @@ namespace Myra.Graphics2D.Text
 				glyphs.Add(glyph);
 			}
 
+/*			var characterMap = glyphs.ToDictionary(a => a.Character);
+
 			// Process kernings
-/*			foreach (var pair in data.Kernings)
+			foreach (var pair in data.Kernings)
 			{
 				var kerning = pair.Key;
 
-				SpriteFont.Glyph glyph;
-				if (!glyphs.TryGetValue(kerning.FirstCharacter, out glyph))
+				BitmapFontRegion glyph;
+				if (!characterMap.TryGetValue(kerning.FirstCharacter, out glyph))
 				{
 					continue;
 				}
 
-				glyph.Kerning[kerning.SecondCharacter] = kerning.Amount;
+				glyph.Kernings[kerning.SecondCharacter] = kerning.Amount;
 			}*/
 
 			var result = new BitmapFont(name, glyphs, data.LineHeight);

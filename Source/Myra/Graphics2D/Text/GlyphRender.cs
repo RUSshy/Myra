@@ -21,7 +21,7 @@ namespace Myra.Graphics2D.Text
 
 		public int Width
 		{
-			get { return Glyph.FontRegion != null ? Glyph.FontRegion.Width : 0; }
+			get { return Glyph.FontRegion != null ? Glyph.FontRegion.Width + Glyph.FontRegion.XOffset : 0; }
 		}
 
 		public GlyphRender(CharInfo charInfo, GlyphRun run, Color? color)

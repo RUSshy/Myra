@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.TextureAtlases;
+using Myra.Utility;
 
 namespace Myra.Graphics2D
 {
